@@ -27,6 +27,7 @@ created by Mercado et al.[^3] for predicting CH<sub>4</sub> uptake.
 
 ```bash
 git clone https://github.com/adosar/retnet
+cd retnet
 ```
 
 ### Dependencies
@@ -71,7 +72,6 @@ data/
 
 To achieve that:
 ```bash
-cd retnet
 curl link | tar -xvf
 ```
 
