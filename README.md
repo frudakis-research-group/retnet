@@ -1,5 +1,5 @@
 <p align="center">
-  <img alt="RetNet Architecture" src="https://raw.githubusercontent.com/adosar/retnet/master/images/forward_pass.png" width="80%"/>
+  <img alt="RetNet Architecture" src="https://raw.githubusercontent.com/adosar/retnet/master/images/retnet.png" width="80%"/>
 </p>
 
 <h4 align="center">
@@ -15,11 +15,13 @@ A `PyTorch` implementation of `RetNet` can be found on `model.py` module.
 
 ## 🚀 Training RetNet
 
-The following example is used to train `RetNet` on the University of Ottawa database[^2] for predicting CO~2~ uptake. 
+The following example is used to train `RetNet` on the University of Ottawa
+database[^2] for predicting CO<sub>2</sub> uptake. 
 
-By modifying `training.py` you can also train `RetNet` on the COFs dataset created by Mercado et al.[^3] for predicting CH~4~ uptake.
+By modifying `training.py` you can also train `RetNet` on the COFs dataset
+created by Mercado et al.[^3] for predicting CH<sub>4</sub> uptake.
 
-**It is strongly recommended to run all the scripts inside a virtual environent.**
+**It is strongly recommended to run all the scripts inside a virtual environment.**
 
 ### Dependencies
 
@@ -86,7 +88,7 @@ If you use the `RetNet` architecture in your research work or any of the scripts
 [^1]: DOI currently N/A.
 
 [^2]: Boyd, P.G., Chidambaram, A., García-Díez, E. _et al._
-Data-driven design of metal–organic frameworks for wet flue gas CO~2~ capture.
+Data-driven design of metal–organic frameworks for wet flue gas CO<sub>2</sub> capture.
  _Nature_ **576**, 253–256 (2019). https://doi.org/10.1038/s41586-019-1798-7
 
 [^3]: In Silico Design of 2D and 3D Covalent Organic Frameworks for Methane Storage Applications.
