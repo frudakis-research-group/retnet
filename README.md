@@ -1,5 +1,5 @@
 <p align="center">
-  <img alt="RetNet Architecture" src="https://raw.githubusercontent.com/adosar/retnet/master/images/forward_pass.png" width="20%"/>
+  <img alt="RetNet Architecture" src="https://raw.githubusercontent.com/adosar/retnet/master/images/forward_pass.png" width="80%"/>
 </p>
 
 <h4 align="center">
