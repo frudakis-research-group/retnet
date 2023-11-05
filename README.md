@@ -23,6 +23,12 @@ created by Mercado et al.[^3] for predicting CH<sub>4</sub> uptake.
 
 **It is strongly recommended to run all the scripts inside a virtual environment.**
 
+### Clone the repository
+
+```bash
+git clone https://github.com/adosar/retnet
+```
+
 ### Dependencies
 
 1. Create a virtual environment:
@@ -37,12 +43,6 @@ created by Mercado et al.[^3] for predicting CH<sub>4</sub> uptake.
 	```bash
 	(<venvir_name>) pip install -r requirements.txt
 	```
-
-### Clone the repository
-
-```bash
-git clone https://github.com/adosar/retnet
-```
 
 ### Collect the data
 
