@@ -1,14 +1,73 @@
 import json
 import torch
 import numpy as np
-import torch.nn as nn
 import pandas as pd
+import torch.nn as nn
 import torch.optim as optim
 import torch.nn.functional as F
 from torch.utils.data import Dataset
 from itertools import cycle, combinations
 from torch.utils.tensorboard import SummaryWriter
 from torcheval.metrics.functional import r2_score
+
+
+class RetNet(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.conv1 = nn.Sequential(
+            nn.Conv3d(in_channels=1, out_channels=12, kernel_size=3, padding=1, padding_mode='circular', bias=False),
+            nn.BatchNorm3d(num_features=12),
+            nn.LeakyReLU(),
+            )
+        self.conv2 = nn.Sequential(
+            nn.Conv3d(in_channels=12, out_channels=24, kernel_size=3, bias=False),
+            nn.BatchNorm3d(num_features=24),
+            nn.LeakyReLU(),
+            )
+
+        self.max1 = nn.MaxPool3d(kernel_size=2)
+
+        self.conv3 = nn.Sequential(
+            nn.Conv3d(in_channels=24, out_channels=32, kernel_size=2, bias=False),
+            nn.BatchNorm3d(num_features=32),
+            nn.LeakyReLU(),
+            )
+
+        self.max2 = nn.MaxPool3d(kernel_size=2)
+
+        self.conv4 = nn.Sequential(
+            nn.Conv3d(in_channels=32, out_channels=64, kernel_size=2, bias=False),
+            nn.BatchNorm3d(num_features=64),
+            nn.LeakyReLU(),
+            )
+        self.conv5 = nn.Sequential(
+            nn.Conv3d(in_channels=64, out_channels=120, kernel_size=2, bias=False),
+            nn.BatchNorm3d(num_features=120),
+            nn.LeakyReLU(),
+            )
+        self.fc = nn.Sequential(
+            nn.Flatten(1),
+            nn.Dropout(0.3),
+            nn.Linear(3*3*3*120, 84),
+            nn.BatchNorm1d(num_features=84),
+            nn.LeakyReLU(),
+            nn.Linear(84, 20),
+            nn.BatchNorm1d(num_features=20),
+            nn.LeakyReLU(),
+            nn.Linear(20, 1),
+            )
+    
+    def forward(self, x):
+         x = self.conv1(x)
+         x = self.conv2(x)
+         x = self.max1(x)
+         x = self.conv3(x)
+         x = self.max2(x)
+         x = self.conv4(x)
+         x = self.conv5(x)
+         x = self.fc(x)
+         
+         return x
 
 
 class VoNet(nn.Module):
@@ -103,7 +162,7 @@ class LearningMethod:
     def train(
         self, train_loader, val_loader,
         val_loss_freq=15, epochs=1, scheduler=None,
-        metric=r2_score, cuda_device=None, tb_writer=None, verbose=True,
+        metric=r2_score, device=None, tb_writer=None, verbose=True,
         ):
         
         self.scheduler = scheduler
@@ -127,9 +186,7 @@ class LearningMethod:
                 print(f'\nEpoch: {e}')
 
             for i, (X_train, y_train) in enumerate(train_loader):
-                if cuda_device:
-                    X_train = X_train.to(cuda_device)
-                    y_train = y_train.to(cuda_device)
+                X_train, y_train = X_train.to(device), y_train.to(device)
 
                 # Initialize zero gradients.
                 self.optimizer.zero_grad()
@@ -141,11 +198,9 @@ class LearningMethod:
                     counter += val_loss_freq
 
                     X_val, y_val = next(val_loader)
-                    if cuda_device:
-                        X_val = X_val.to(cuda_device)
-                        y_val = y_val.to(cuda_device)
+                    X_val, y_val = X_val.to(device), y_val.to(device)
 
-                    # Account for regularization (dropout)
+                    # Account for Dropout + BatchNorm.
                     yth = self.predict(X_train)
 
                     y_val_hat = self.predict(X_val)
@@ -154,6 +209,7 @@ class LearningMethod:
                     train_metric = metric(yth.ravel(), y_train)
                     val_metric = metric(y_val_hat.ravel(), y_val)
 
+                # Update the parameters.
                 train_loss.backward()
                 self.optimizer.step()
 
