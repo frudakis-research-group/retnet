@@ -12,11 +12,13 @@ from sklearn.model_selection import train_test_split
 # For reproducible results.
 np.random.seed(1)
 
+# Load the names of materials used as train data.
 with open('data/MOFs/batch_train/clean_names.json', 'r') as fhand:
     mof_train = json.load(fhand)['names']
 
+# Load the names of materials used as test data.
 with open('data/MOFs/batch_val_test/clean_names.json', 'r') as fhand:
-    mof_test = json.load(fhand)['names']
+    mof_test = json.load(fhand)['names'][5000:]
 
 column_names = [
     'MOFname', 'CO2_uptake_P0.15bar_T298K [mmol/g]',
@@ -26,21 +28,11 @@ column_names = [
     'largest_included_sphere_diameter [A]',
     ]
 
+# Load features and labels.
 df = pd.read_csv('data/MOFs/all_MOFs_screening_data.csv')
 df.set_index('MOFname', inplace=True)
 features = column_names[2:]
 target = column_names[1]
-
-#with open('data/COFs/batch_train/clean_names.json', 'r') as fhand:
-#    mof_train = json.load(fhand)['names']
-#
-#with open('data/COFs/batch_val_test/clean_names.json', 'r') as fhand:
-#    mof_test = json.load(fhand)['names']
-
-#df = pd.read_csv('data/COFs/COFs_low_pressure.csv')
-#df.set_index('COFname', inplace=True)
-#features = ['dompore', 'maxpore', 'voidfraction', 'gsurface', 'density']
-#target = 'adsV_CH4_5.8b'
 
 reg = RandomForestRegressor(n_jobs=-1)
 
