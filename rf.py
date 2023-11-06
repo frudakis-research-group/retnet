@@ -20,7 +20,6 @@ with open('data/MOFs/batch_val_test/clean_names.json', 'r') as fhand:
 
 column_names = [
     'MOFname', 'CO2_uptake_P0.15bar_T298K [mmol/g]',
-    'heat_adsorption_CO2_P0.15bar_T298K [kcal/mol]',
     'volume [A^3]', 'weight [u]', 'surface_area [m^2/g]',
     'void_fraction', 'void_volume [cm^3/g]', 'largest_free_sphere_diameter [A]',
     'largest_included_sphere_along_free_sphere_path_diameter [A]',
@@ -29,7 +28,7 @@ column_names = [
 
 df = pd.read_csv('data/MOFs/all_MOFs_screening_data.csv')
 df.set_index('MOFname', inplace=True)
-features = column_names[3:]
+features = column_names[2:]
 target = column_names[1]
 
 #with open('data/COFs/batch_train/clean_names.json', 'r') as fhand:
