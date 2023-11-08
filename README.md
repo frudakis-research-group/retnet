@@ -9,7 +9,7 @@
 
 </h4>
 
-This repository contains the necessary `Python` scripts to train the `RetNet` architecture[^1].
+This repository contains the necessary `Python` code to train the `RetNet` architecture[^1].
 
 A `PyTorch` implementation of `RetNet` can be found on `model.py` module.
 
