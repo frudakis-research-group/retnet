@@ -5,11 +5,11 @@
 <h4 align="center">
   
 [![Requires Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-blue?logo=python&logoColor=yellow&label=Python&labelColor=black&color=blue)](https://www.python.org/downloads/)
-![Requires PyTorch 2.1.0](https://img.shields.io/badge/PyTorch-2.1.0-blue?logo=pytorch)
+[![Requires PyTorch 2.1.0|2.0.1+cu118](https://img.shields.io/badge/PyTorch-2.1.0|2.0.1+cu118-blue?logo=pytorch)](https://pytorch.org/get-started/locally/)
 
 </h4>
 
-This repository contains the necessary `python` scripts to train the `RetNet` architecture[^1].
+This repository contains the necessary `Python` scripts to train the `RetNet` architecture[^1].
 
 A `PyTorch` implementation of `RetNet` can be found on `model.py` module.
 
@@ -18,16 +18,12 @@ A `PyTorch` implementation of `RetNet` can be found on `model.py` module.
 The following example is used to train `RetNet` on the University of Ottawa
 database[^2] for predicting CO<sub>2</sub> uptake. 
 
-By modifying `training.py` you can also train `RetNet` on the COFs dataset
-created by Mercado et al.[^3] for predicting CH<sub>4</sub> uptake.
-
 **It is strongly recommended to run all the scripts inside a virtual environment.**
 
 ### Clone the repository
 
 ```bash
 git clone https://github.com/adosar/retnet
-cd retnet
 ```
 
 ### Dependencies
@@ -50,38 +46,39 @@ cd retnet
 The following directory structure is required prior to training:
 ```bash
 data/
-├── COFs
-│   ├── batch_train
-│   │   ├── clean_names.json
-│   │   └── clean_voxels.npy
-│   ├── batch_val_test
-│   │   ├── clean_names.json
-│   │   └── clean_voxels.npy
-│   └── COFs_low_pressure.csv
-└── MOFs
-    ├── all_MOFs_screening_data.csv
-    ├── batch_train
-    │   ├── clean_names.json
-    │   └── clean_voxels.npy
-    └── batch_val_test
-        ├── clean_names.json
-        └── clean_voxels.npy
-
-7 directories, 10 files
+├── MOFs
+   ├── all_MOFs_screening_data.csv
+   ├── batch_train
+   │   ├── clean_names.json
+   │   └── clean_voxels.npy
+   └── batch_val_test
+       ├── clean_names.json
+       └── clean_voxels.npy
 ```
 
 To achieve that:
 ```bash
-curl link | tar -xvf
+cd retnet
+mkdir data
+```
+1. Get the labels (`all_MOFs_screening_data.csv`) from: https://archive.materialscloud.org/record/2018.0016/v3
+> [!WARNING]  
+> If you use any of this data in your research work, you should cite the original work[^2].
+
+2. Get the inputs from: ADD ZENODO LINK
+> [!WARNING]  
+> If you use any of this data in your research work, you should cite the original work[^1].
+```
+curl $link | tar -xvf
 ```
 
 ###  Train the model
-Check the comments  in `training.py` to customize the training phase on your needs.[^3]
+Check the comments  in `training.py` to customize the training phase on your needs.
 ```bash 
 (<venvir_name>) python training.py
 ```
 
-## 📰 Cite
+## 📰 Citing
 If you use the `RetNet` architecture in your research work or any of the scripts of this repository, please consider citing:
 > Currently N/A.
 
@@ -90,7 +87,3 @@ If you use the `RetNet` architecture in your research work or any of the scripts
 [^2]: Boyd, P.G., Chidambaram, A., García-Díez, E. _et al._
 Data-driven design of metal–organic frameworks for wet flue gas CO<sub>2</sub> capture.
  _Nature_ **576**, 253–256 (2019). https://doi.org/10.1038/s41586-019-1798-7
-
-[^3]: In Silico Design of 2D and 3D Covalent Organic Frameworks for Methane Storage Applications.
-Rocío Mercado, Rueih-Sheng Fu, Aliaksandr V. Yakutovich, Leopold Talirz, Maciej Haranczyk, and Berend Smit.
-Chemistry of Materials **2018** _30_ (15), 5069-5086. https://doi.org/10.1021/acs.chemmater.8b01425
