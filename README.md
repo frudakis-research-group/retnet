@@ -58,7 +58,7 @@ data/
 
 To achieve that:
 ```bash
-mkdir retnet/data && cd $_
+mkdir retnet/data
 ```
 1. Get the [labels](https://archive.materialscloud.org/record/2018.0016/v3)
 	> [!WARNING]  
@@ -66,7 +66,7 @@ mkdir retnet/data && cd $_
 
 2. Get the [inputs](www.zenodo.org)
 	```
-	curl $link | tar -xvf
+	curl $link | tar -xvf -C data
 	```
   	> [!WARNING]  
 	> If you use any of this data in your research work, you should cite the original work[^1].
