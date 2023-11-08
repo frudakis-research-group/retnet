@@ -58,19 +58,20 @@ data/
 
 To achieve that:
 ```bash
-cd retnet
-mkdir data
+mkdir retnet/data && cd $_
 ```
-1. Get the labels (`all_MOFs_screening_data.csv`) from: https://archive.materialscloud.org/record/2018.0016/v3
-> [!WARNING]  
-> If you use any of this data in your research work, you should cite the original work[^2].
+1. Get the [labels](https://archive.materialscloud.org/record/2018.0016/v3)
+	> [!WARNING]  
+	> If you use any of this data in your research work, you should cite the original work[^2].
 
-2. Get the inputs from: ADD ZENODO LINK
-> [!WARNING]  
-> If you use any of this data in your research work, you should cite the original work[^1].
-```
-curl $link | tar -xvf
-```
+2. Get the [inputs](www.zenodo.org)
+	```
+	curl $link | tar -xvf
+	```
+  	> [!WARNING]  
+	> If you use any of this data in your research work, you should cite the original work[^1].
+
+
 
 ###  Train the model
 Check the comments  in `training.py` to customize the training phase on your needs.
