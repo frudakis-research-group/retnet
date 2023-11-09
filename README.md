@@ -60,17 +60,18 @@ To achieve that:
 ```bash
 mkdir retnet/data
 ```
-1. Get the [labels](https://archive.materialscloud.org/record/2018.0016/v3)
-	> [!WARNING]  
-	> If you use any of this data in your research work, you should cite the original work[^2].
 
-2. Get the [inputs](www.zenodo.org)
-	```
-	curl $link | tar -xvf -C data
+1. Get the [inputs](www.zenodo.org):
+	```bash
+	wget -O- "$link" | tar -xzvf-
 	```
   	> [!WARNING]  
 	> If you use any of this data in your research work, you should cite the original work[^1].
-
+   
+2. Get the [labels](https://archive.materialscloud.org/record/2018.0016/v3):   	```bash
+    	wget -O- "https://archive.materialscloud.org/record/file?filename=screening_data.tar.gz&record_id=62" | tar -xzvf- -C data/MOFs
+	> [!WARNING]  
+	> If you use any of this data in your research work, you should cite the original work[^2].
 
 
 ###  Train the model
