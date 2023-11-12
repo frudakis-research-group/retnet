@@ -45,7 +45,7 @@ y_test = df_test.loc[:, target]
 
 train_sizes = [
         100, 500, 1_000, 2_000, 5_000,
-        10_000, 20_000, len(mof_train)
+        10_000, 15_000, 20_000, len(mof_train)
         ]
  
 for size in train_sizes:
