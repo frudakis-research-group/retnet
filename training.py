@@ -8,7 +8,7 @@ from torch.utils.data import DataLoader
 from torcheval.metrics.functional import r2_score
 from model import CustomDataset, Flip, Roll, Rotate90, Reflect, Identity
 from torch.utils.tensorboard import SummaryWriter
-from model import load_data, LearningMethod, RetNet, DummyNet, init_weights
+from model import load_data, LearningMethod, RetNet, init_weights
 
 # For reproducible results.
 # See also -> https://pytorch.org/docs/stable/notes/randomness.html
@@ -72,9 +72,11 @@ scheduler = optim.lr_scheduler.StepLR(
     gamma=0.5, verbose=True
     )
 
-# Initialize weights and bias of the last layer with E[y_train].
+# Initialize weights.
 # Check the function `. model.init_weights`.
 net.apply(lambda m: init_weights(m, a=0.01))
+
+# Initialize bias of the last layer with E[y_train].
 torch.nn.init.constant_(net.fc[-1].bias, y_train.mean())
 
 model = LearningMethod(net, optimizer, criterion) 

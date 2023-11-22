@@ -129,30 +129,6 @@ class VoNet(nn.Module):
          return x
 
 
-class DummyNet(nn.Module):
-    def __init__(self):
-        super().__init__()
-        self.fc = nn.Sequential(
-            nn.Flatten(1),
-            nn.Dropout(0.1),
-            nn.Linear(25*25*25, 1024),
-            nn.BatchNorm1d(num_features=1024),
-            nn.LeakyReLU(),
-            nn.Linear(1024, 120),
-            nn.BatchNorm1d(num_features=120),
-            nn.LeakyReLU(),
-            nn.Linear(120, 120),
-            nn.BatchNorm1d(num_features=120),
-            nn.LeakyReLU(),
-            nn.Linear(120, 1),
-            )
-
-    def forward(self, x):
-         x = self.fc(x)
-         
-         return x
-
-
 class LearningMethod:
     def __init__(self, network, optimizer, criterion):
         self.net = network
@@ -327,42 +303,14 @@ class Identity:
         return sample
 
 
-# NEEDS TO BE REWRITTEN (follow sklearn's fit, fit_transform)
-#class Scaler:
-#    """A general scaler."""
-#    def __init__(self, base):
-#        self.base = base
-#
-#    def standardize(self, *args):
-#        if not (hasattr(self, '_mean') and hasattr(self, '_std')):
-#            self._mean = self.base.mean()
-#            self._std = self.base.std()
-#
-#        return [(X - self._mean)/self._std for X in args]
-#
-#    def max_normalize(self, *args):
-#        if not hasattr(self, '_max'):
-#            self._max = self.base.max()
-#
-#        return [X/self._max for X in args]
-#
-#    def min_max_normalize(self, *args):
-#        if not hasattr(self, '_max'):
-#            self._max = self.base.max()
-#        if not hasattr(self, '_min'):
-#            self._min = self.base.min()
-#
-#        return [(X - self._min)/(self._max - self._min) for X in args]
-
-
 @torch.no_grad()
 def init_weights(m, initialization='normal', **kwargs):
     if initialization == 'normal':
-        if type(m) == nn.Linear or type(m) == nn.Linear:
+        if type(m) == nn.Linear or type(m) == nn.Conv3d:
             m.weight = nn.init.kaiming_normal_(m.weight, **kwargs)
 
     elif initialization == 'uniform':
-        if type(m) == nn.Linear or type(m) == nn.Linear:
+        if type(m) == nn.Linear or type(m) == nn.Conv3d:
             m.weight = nn.init.kaiming_uniform_(m.weight, **kwargs)
 
 
