@@ -306,27 +306,12 @@ class Identity:
 @torch.no_grad()
 def init_weights(m, initialization='normal', **kwargs):
     if initialization == 'normal':
-        if type(m) == nn.Linear or type(m) == nn.Conv3d:
+        if type(m) == nn.Linear:# or type(m) == nn.Conv3d:
             m.weight = nn.init.kaiming_normal_(m.weight, **kwargs)
 
     elif initialization == 'uniform':
-        if type(m) == nn.Linear or type(m) == nn.Conv3d:
+        if type(m) == nn.Linear:# or type(m) == nn.Conv3d:
             m.weight = nn.init.kaiming_uniform_(m.weight, **kwargs)
-
-
-def train_val_test_split(X, y, ratio=[0.8, 0.1, 0.1]):
-    """Split a dataset into train, validation and test sets."""
-    X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=ratio[2]
-        )
-
-    train_ratio = ratio[0] / (1 - ratio[2])
-
-    X_train, X_val, y_train, y_val = train_test_split(
-        X_train, y_train, train_size = train_ratio
-        )
-
-    return ([X_train, y_train], [X_val, y_val], [X_test, y_test])
 
 
 def names_from_json(*args):
