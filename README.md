@@ -38,6 +38,7 @@ git clone https://github.com/adosar/retnet
 	```
 3. Install the dependencies:
 	```bash
+ 	cd retnet
 	(<venvir_name>) pip install -r requirements.txt
 	```
 
