@@ -314,16 +314,6 @@ def init_weights(m, initialization='normal', **kwargs):
             m.weight = nn.init.kaiming_uniform_(m.weight, **kwargs)
 
 
-def names_from_json(*args):
-    names = []
-    for batch_dir in args:
-        with open(batch_dir, 'r') as fhand:
-            info = json.load(fhand)
-            names.append(info['names'])
-
-    return np.concatenate(names)
-
-
 def load_data(dir_batch, path_to_csv, target_name, index_name_csv, size=None):
     with open(f'{dir_batch}/clean_names.json', 'r') as fhand:
         names = json.load(fhand)['names']
