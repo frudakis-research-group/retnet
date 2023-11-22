@@ -19,7 +19,8 @@ A `PyTorch` implementation of `RetNet` can be found on `model.py` module.
 The following example is used to train `RetNet` on the University of Ottawa
 database[^2] for predicting CO<sub>2</sub> uptake. 
 
-**It is strongly recommended to run all the scripts inside a virtual environment.**
+> [!IMPORTANT]
+> **It is strongly recommended to run all the scripts inside a virtual environment.**
 
 ### Clone the repository
 

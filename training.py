@@ -21,8 +21,7 @@ random.seed(1)
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 train_size = 32_432
 
-# Loading training data.
-# Check the function `. model.load_data`.
+# Load training data.
 X_train, y_train = load_data(
         'data/MOFs/batch_train',
         'data/MOFs/all_MOFs_screening_data.csv',
@@ -31,6 +30,7 @@ X_train, y_train = load_data(
         size=train_size
         )
 
+# Load validation data.
 X_val, y_val = load_data(
         'data/MOFs/batch_val_test',
         'data/MOFs/all_MOFs_screening_data.csv',
@@ -73,7 +73,6 @@ scheduler = optim.lr_scheduler.StepLR(
     )
 
 # Initialize weights.
-# Check the function `. model.init_weights`.
 net.apply(lambda m: init_weights(m, a=0.01))
 
 # Initialize bias of the last layer with E[y_train].

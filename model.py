@@ -306,11 +306,11 @@ class Identity:
 @torch.no_grad()
 def init_weights(m, initialization='normal', **kwargs):
     if initialization == 'normal':
-        if type(m) == nn.Linear or type(m) == nn.Conv3d:
+        if type(m) == nn.Linear:
             m.weight = nn.init.kaiming_normal_(m.weight, **kwargs)
 
     elif initialization == 'uniform':
-        if type(m) == nn.Linear or type(m) == nn.Conv3d:
+        if type(m) == nn.Linear:
             m.weight = nn.init.kaiming_uniform_(m.weight, **kwargs)
 
 
