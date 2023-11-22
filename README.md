@@ -25,7 +25,7 @@ database[^2] for predicting CO<sub>2</sub> uptake.
 ### Clone the repository
 
 ```bash
-git clone https://github.com/adosar/retnet
+git clone https://github.com/frudakis-research-group/retnet
 cd retnet
 ```
 
