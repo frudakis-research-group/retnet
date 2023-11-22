@@ -38,7 +38,7 @@ git clone https://github.com/adosar/retnet
 	```
 3. Install the dependencies:
 	```bash
- 	cd retnet
+ 	(<venvir_name>) cd retnet
 	(<venvir_name>) pip install -r requirements.txt
 	```
 
@@ -59,7 +59,7 @@ data/
 
 To achieve that:
 ```bash
-mkdir retnet/data
+mkdir data
 ```
 
 1. Get the [inputs](www.zenodo.org):
