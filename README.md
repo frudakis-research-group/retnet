@@ -83,6 +83,9 @@ Check the comments  in `training.py` to customize the training phase on your nee
 * GPU training time: 40s per epoch on Nvidia GTX 1650 Super
 * CPU training time: 257s per epoch on Intel i5 8400
 
+> [!TIP]
+> If you want to use a GPU but the VRAM is not enough, try decreasing the batch size to a value smaller than 64.
+
 ## 📰 Citing
 If you use the `RetNet` architecture in your research work or any of the scripts of this repository, please consider citing:
 > Currently N/A.
