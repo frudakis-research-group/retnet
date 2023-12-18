@@ -4,5 +4,5 @@ pandas==2.0.1
 scikit-learn==1.2.2
 torch==2.1.0
 torchaudio==2.1.0
-torcheval
-torchvision==2.1.0
+torcheval==0.0.7
+torchvision==0.16.1
