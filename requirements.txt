@@ -2,7 +2,7 @@ joblib==1.2.0
 numpy==1.24.1
 pandas==2.0.1
 scikit-learn==1.2.2
-torch==2.1.0
-torchaudio==2.1.0
-torcheval==0.0.7
-torchvision==0.16.1
+torch
+torchaudio
+torcheval
+torchvision
