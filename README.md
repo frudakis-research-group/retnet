@@ -5,7 +5,7 @@
 <h4 align="center">
   
 [![Requires Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-blue?logo=python&logoColor=yellow&label=Python&labelColor=black&color=blue)](https://www.python.org/downloads/)
-[![Requires PyTorch 2.1.0|2.0.1+cu118](https://img.shields.io/badge/PyTorch-2.1.0|2.0.1+cu118-blue?logo=pytorch)](https://pytorch.org/get-started/locally/)
+[![Requires PyTorch 2.1.0+|2.0.1+cu118](https://img.shields.io/badge/PyTorch-2.1.0+|2.0.1+cu118-blue?logo=pytorch)](https://pytorch.org/get-started/locally/)
 [![Static Badge](https://img.shields.io/badge/Figshare-data-blue?logo=figshare)](https://figshare.com/articles/dataset/RetNet/24598845)
 
 </h4>
