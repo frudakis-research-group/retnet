@@ -10,8 +10,9 @@
 
 </h4>
 
-**RetNet** is a 3D ConvNet that takes energy voxels as input and ouputs
-predictions for gas adsorption properties.
+# 💎 RetNet
+
+A 3D ConvNet that takes energy voxels as input and ouputs gas adsorption properties.
 
 This repository contains a `PyTorch` implementation of `RetNet`,
 which can be found on [`model.py`](https://github.com/frudakis-research-group/retnet/blob/master/model.py#L14) module.
