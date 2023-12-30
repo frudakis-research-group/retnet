@@ -332,6 +332,6 @@ def load_data(dir_batch, path_to_csv, target_name, index_name_csv, size=None):
     df.set_index(index_name_csv, inplace=True)
 
     y = df.loc[names, target_name].values.astype('float32')
-    X = np.load(f'{dir_batch}/clean_voxels.npy', mmap_mode='c')
+    X = np.load(f'{dir_batch}/clean_voxels.npy', mmap_mode='m')
 
     return X[:size], y[:size]

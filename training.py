@@ -81,14 +81,14 @@ model = LearningMethod(net, optimizer, criterion)
 print(net)
 model_name = 'RetNet'
 
-# Use Tensorboard.
+# Use Tensorboard. Needs to be fixed!
 # See also -> https://pytorch.org/tutorials/recipes/recipes/tensorboard_with_pytorch.html
-writer = SummaryWriter(log_dir='experiments/')
+#writer = SummaryWriter(log_dir='experiments/')
 
 model.train(
     train_loader=train_loader, val_loader=val_loader,
     metric=r2_score, epochs=1, scheduler=scheduler,
-    device=device, verbose=True, tb_writer=writer,
+    device=device, verbose=True, #tb_writer=writer,
     )
 
 # Calculate R^2 on the whole validation set.
