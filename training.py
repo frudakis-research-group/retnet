@@ -6,7 +6,7 @@ import torch.optim as optim
 from torchvision import transforms
 from torch.utils.data import DataLoader
 from torcheval.metrics.functional import r2_score
-from model import CustomDataset, Flip, Roll, Rotate90, Reflect, Identity
+from model import CustomDataset, Flip, Rotate90, Reflect, Identity
 from torch.utils.tensorboard import SummaryWriter
 from model import load_data, LearningMethod, RetNet, init_weights
 
@@ -19,7 +19,6 @@ random.seed(1)
 # Requires installation with GPU support.
 # See also -> https://pytorch.org/get-started/locally/
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-train_size = 32_432
 
 # Load training data.
 X_train, y_train = load_data(
@@ -27,7 +26,7 @@ X_train, y_train = load_data(
         'data/MOFs/all_MOFs_screening_data.csv',
         'CO2_uptake_P0.15bar_T298K [mmol/g]',
         'MOFname',
-        size=train_size
+        size=32_432
         )
 
 # Load validation data.
@@ -92,16 +91,13 @@ model.train(
     device=device, verbose=True, tb_writer=writer,
     )
 
-# Calculate R2 on the whole validation set.
-predictions = []
-for x, _ in val_loader:
-    y_pred = model.predict(x.to(device))
-    predictions.append(y_pred)
+# Calculate R^2 on the whole validation set.
+predictions = [model.predict(x.to(device)) for x, _ in val_loader]
 
-y_pred = torch.concatenate([b for b in predictions])
+y_pred = torch.concatenate(predictions)
 y_true = torch.tensor(y_val).reshape(len(y_val), -1).to(device)
 
-print(f'R2 for validation set: {r2_score(y_pred, y_true)}')
+print(f'R2 for validation set: {r2_score(input=y_pred, target=y_true)}')
 
 # Save the trained model.
 # See also -> https://pytorch.org/tutorials/beginner/saving_loading_models.html

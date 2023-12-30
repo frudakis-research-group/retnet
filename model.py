@@ -15,46 +15,46 @@ class RetNet(nn.Module):
     def __init__(self):
         super().__init__()
         self.conv1 = nn.Sequential(
-            nn.Conv3d(in_channels=1, out_channels=12, kernel_size=3, padding=1, padding_mode='circular', bias=False),
-            nn.BatchNorm3d(num_features=12),
-            nn.LeakyReLU(),
+                nn.Conv3d(in_channels=1, out_channels=12, kernel_size=3, padding=1, padding_mode='circular', bias=False),
+                nn.BatchNorm3d(num_features=12),
+                nn.LeakyReLU(),
             )
         self.conv2 = nn.Sequential(
-            nn.Conv3d(in_channels=12, out_channels=24, kernel_size=3, bias=False),
-            nn.BatchNorm3d(num_features=24),
-            nn.LeakyReLU(),
+                nn.Conv3d(in_channels=12, out_channels=24, kernel_size=3, bias=False),
+                nn.BatchNorm3d(num_features=24),
+                nn.LeakyReLU(),
             )
 
         self.max1 = nn.MaxPool3d(kernel_size=2)
 
         self.conv3 = nn.Sequential(
-            nn.Conv3d(in_channels=24, out_channels=32, kernel_size=2, bias=False),
-            nn.BatchNorm3d(num_features=32),
-            nn.LeakyReLU(),
+                nn.Conv3d(in_channels=24, out_channels=32, kernel_size=2, bias=False),
+                nn.BatchNorm3d(num_features=32),
+                nn.LeakyReLU(),
             )
 
         self.max2 = nn.MaxPool3d(kernel_size=2)
 
         self.conv4 = nn.Sequential(
-            nn.Conv3d(in_channels=32, out_channels=64, kernel_size=2, bias=False),
-            nn.BatchNorm3d(num_features=64),
-            nn.LeakyReLU(),
+                nn.Conv3d(in_channels=32, out_channels=64, kernel_size=2, bias=False),
+                nn.BatchNorm3d(num_features=64),
+                nn.LeakyReLU(),
             )
         self.conv5 = nn.Sequential(
-            nn.Conv3d(in_channels=64, out_channels=120, kernel_size=2, bias=False),
-            nn.BatchNorm3d(num_features=120),
-            nn.LeakyReLU(),
+                nn.Conv3d(in_channels=64, out_channels=120, kernel_size=2, bias=False),
+                nn.BatchNorm3d(num_features=120),
+                nn.LeakyReLU(),
             )
         self.fc = nn.Sequential(
-            nn.Flatten(1),
-            nn.Dropout(0.3),
-            nn.Linear(3*3*3*120, 84),
-            nn.BatchNorm1d(num_features=84),
-            nn.LeakyReLU(),
-            nn.Linear(84, 20),
-            nn.BatchNorm1d(num_features=20),
-            nn.LeakyReLU(),
-            nn.Linear(20, 1),
+                nn.Flatten(1),
+                nn.Dropout(0.3),
+                nn.Linear(3*3*3*120, 84),
+                nn.BatchNorm1d(num_features=84),
+                nn.LeakyReLU(),
+                nn.Linear(84, 20),
+                nn.BatchNorm1d(num_features=20),
+                nn.LeakyReLU(),
+                nn.Linear(20, 1),
             )
     
     def forward(self, x):
@@ -70,63 +70,63 @@ class RetNet(nn.Module):
          return x
 
 
-class VoNet(nn.Module):
-    def __init__(self):
-        super().__init__()
-        self.conv1 = nn.Sequential(
-            nn.Conv3d(in_channels=1, out_channels=12, kernel_size=3, padding=1, padding_mode='circular', bias=False),
-            nn.BatchNorm3d(num_features=12),
-            nn.LeakyReLU(),
-            )
-        self.conv2 = nn.Sequential(
-            nn.Conv3d(in_channels=12, out_channels=24, kernel_size=3, bias=False),
-            nn.BatchNorm3d(num_features=24),
-            nn.LeakyReLU(),
-            )
-
-        self.max1 = nn.MaxPool3d(kernel_size=2)
-
-        self.conv3 = nn.Sequential(
-            nn.Conv3d(in_channels=24, out_channels=32, kernel_size=2, bias=False),
-            nn.BatchNorm3d(num_features=32),
-            nn.LeakyReLU(),
-            )
-
-        self.max2 = nn.MaxPool3d(kernel_size=2)
-
-        self.conv4 = nn.Sequential(
-            nn.Conv3d(in_channels=32, out_channels=64, kernel_size=2, bias=False),
-            nn.BatchNorm3d(num_features=64),
-            nn.LeakyReLU(),
-            )
-        self.conv5 = nn.Sequential(
-            nn.Conv3d(in_channels=64, out_channels=120, kernel_size=2, bias=False),
-            nn.BatchNorm3d(num_features=120),
-            nn.LeakyReLU(),
-            )
-        self.fc = nn.Sequential(
-            nn.Flatten(1),
-            nn.Dropout(0.3),
-            nn.Linear(3*3*3*120, 84),
-            nn.BatchNorm1d(num_features=84),
-            nn.LeakyReLU(),
-            nn.Linear(84, 20),
-            nn.BatchNorm1d(num_features=20),
-            nn.LeakyReLU(),
-            nn.Linear(20, 1),
-            )
-    
-    def forward(self, x):
-         x = self.conv1(x)
-         x = self.conv2(x)
-         x = self.max1(x)
-         x = self.conv3(x)
-         x = self.max2(x)
-         x = self.conv4(x)
-         x = self.conv5(x)
-         x = self.fc(x)
-         
-         return x
+#class VoNet(nn.Module):
+#    def __init__(self):
+#        super().__init__()
+#        self.conv1 = nn.Sequential(
+#            nn.Conv3d(in_channels=1, out_channels=12, kernel_size=3, padding=1, padding_mode='circular', bias=False),
+#            nn.BatchNorm3d(num_features=12),
+#            nn.LeakyReLU(),
+#            )
+#        self.conv2 = nn.Sequential(
+#            nn.Conv3d(in_channels=12, out_channels=24, kernel_size=3, bias=False),
+#            nn.BatchNorm3d(num_features=24),
+#            nn.LeakyReLU(),
+#            )
+#
+#        self.max1 = nn.MaxPool3d(kernel_size=2)
+#
+#        self.conv3 = nn.Sequential(
+#            nn.Conv3d(in_channels=24, out_channels=32, kernel_size=2, bias=False),
+#            nn.BatchNorm3d(num_features=32),
+#            nn.LeakyReLU(),
+#            )
+#
+#        self.max2 = nn.MaxPool3d(kernel_size=2)
+#
+#        self.conv4 = nn.Sequential(
+#            nn.Conv3d(in_channels=32, out_channels=64, kernel_size=2, bias=False),
+#            nn.BatchNorm3d(num_features=64),
+#            nn.LeakyReLU(),
+#            )
+#        self.conv5 = nn.Sequential(
+#            nn.Conv3d(in_channels=64, out_channels=120, kernel_size=2, bias=False),
+#            nn.BatchNorm3d(num_features=120),
+#            nn.LeakyReLU(),
+#            )
+#        self.fc = nn.Sequential(
+#            nn.Flatten(1),
+#            nn.Dropout(0.3),
+#            nn.Linear(3*3*3*120, 84),
+#            nn.BatchNorm1d(num_features=84),
+#            nn.LeakyReLU(),
+#            nn.Linear(84, 20),
+#            nn.BatchNorm1d(num_features=20),
+#            nn.LeakyReLU(),
+#            nn.Linear(20, 1),
+#            )
+#    
+#    def forward(self, x):
+#         x = self.conv1(x)
+#         x = self.conv2(x)
+#         x = self.max1(x)
+#         x = self.conv3(x)
+#         x = self.max2(x)
+#         x = self.conv4(x)
+#         x = self.conv5(x)
+#         x = self.fc(x)
+#         
+#         return x
 
 
 class LearningMethod:
@@ -136,10 +136,10 @@ class LearningMethod:
         self.criterion = criterion
 
     def train(
-        self, train_loader, val_loader,
-        val_loss_freq=15, epochs=1, scheduler=None,
-        metric=r2_score, device=None, tb_writer=None, verbose=True,
-        ):
+            self, train_loader, val_loader,
+            val_loss_freq=15, epochs=1, scheduler=None,
+            metric=r2_score, device=None, tb_writer=None, verbose=True
+            ):
         
         self.scheduler = scheduler
         self.val_loss_freq = val_loss_freq
@@ -154,62 +154,73 @@ class LearningMethod:
 
         val_loader = cycle(val_loader)
 
-        # Training phase.
+        # Training and validation phase.
         counter = 0
         for e in range(epochs):
 
             if verbose:
                 print(f'\nEpoch: {e}')
 
+            # training phase.
             for i, (X_train, y_train) in enumerate(train_loader):
+                self.net.train() # Set to training mode.
+
+                # Keep track of the iteration number.
+                counter += 1
+
                 X_train, y_train = X_train.to(device), y_train.to(device)
 
                 # Initialize zero gradients.
                 self.optimizer.zero_grad()
 
+                # Calculate train loss.
                 y_train_hat = self.net(X_train)
-                train_loss = self.criterion(y_train_hat.ravel(), y_train)
+                train_loss = self.criterion(input=y_train_hat.ravel(), target=y_train)
 
-                if (i % val_loss_freq == 0):
-                    counter += val_loss_freq
+                # Validation phase.
+                if (counter % val_loss_freq == 0):
+                    self.net.eval() # Set to inference mode.
 
                     X_val, y_val = next(val_loader)
                     X_val, y_val = X_val.to(device), y_val.to(device)
 
-                    # Account for Dropout + BatchNorm.
+                    # Account for correct training metric calculation.
                     yth = self.predict(X_train)
 
+                    # Calculate validation loss.
                     y_val_hat = self.predict(X_val)
-                    val_loss = self.criterion(y_val_hat.ravel(), y_val)
+                    val_loss = self.criterion(input=y_val_hat.ravel(), target=y_val)
 
-                    train_metric = metric(yth.ravel(), y_train)
-                    val_metric = metric(y_val_hat.ravel(), y_val)
+                    train_metric = metric(input=yth.ravel(), target=y_train)
+                    val_metric = metric(input=y_val_hat.ravel(), target=y_val)
 
                 # Update the parameters.
                 train_loss.backward()
                 self.optimizer.step()
 
-                # Print train and validation loss per `val_loss_freq` is.
-                if verbose and (i % val_loss_freq == 0):
+                # Print train and validation metric per `val_loss_freq`.
+                if verbose and (counter % val_loss_freq == 0):
                     print(
-                    f'{f"Iteration {counter}":<20} ->',
-                    #f'{f"train_loss = {train_loss:.3f}":<22}',
-                    f'{f"train_metric = {train_metric:.3f}":<22}',
-                    #f'{f"val_loss = {val_loss:.3f}":>22}', sep=4*' '
-                    f'{f"val_metric = {val_metric:.3f}":>22}', sep=4*' '
-                    )
+                            f'{f"Iteration {counter}":<20} ->',
+                            #f'{f"train_loss = {train_loss:.3f}":<22}',
+                            f'{f"train_metric = {train_metric:.3f}":<22}',
+                            #f'{f"val_loss = {val_loss:.3f}":>22}', sep=4*' '
+                            f'{f"val_metric = {val_metric:.3f}":>22}', sep=4*' '
+                            )
 
+            # Store train/val history.
             self.train_hist.append(train_loss.item())
             self.train_metric.append(train_metric.item())
             self.val_hist.append(val_loss.item())
             self.val_metric.append(val_metric.item())
 
+            # Tensorboard log.
             if tb_writer:
                 self.writer.add_scalars(
-                    'learning_curve',
-                    #{'train': train_loss, 'val': val_loss},
-                    {'train': train_metric, 'val': val_metric},
-                    e
+                        'learning_curve',
+                        {'train': train_loss, 'val': val_loss},
+                        {'train': train_metric, 'val': val_metric},
+                        e
                     )
                 self.writer.add_scalar('Metric/train', train_metric, e)
                 self.writer.add_scalar('Metric/val', val_metric, e)
@@ -227,11 +238,10 @@ class LearningMethod:
 
         print('\nTraining finished!')
 
+    @torch.no_grad()
     def predict(self, X):
         self.net.eval()
-        with torch.no_grad():
-            y_pred = self.net(X)
-        self.net.train()
+        y_pred = self.net(X)
 
         return y_pred
 

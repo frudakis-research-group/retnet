@@ -10,9 +10,11 @@
 
 </h4>
 
-This repository contains the necessary `Python` code to train the `RetNet` architecture[^1].
+**RetNet** is a 3D ConvNet that takes energy voxels as input and ouputs
+predictions for gas adsorption properties.
 
-A `PyTorch` implementation of `RetNet` can be found on `model.py` module.
+This repository contains a `PyTorch` implementation of `RetNet`,
+which can be found on [`model.py`](https://github.com/frudakis-research-group/retnet/blob/master/model.py#L14) module.
 
 ## 🚀 Training RetNet
 
@@ -85,7 +87,9 @@ Check the comments  in `training.py` to customize the training phase on your nee
 * CPU training time: 257s per epoch on Intel i5 8400
 
 > [!TIP]
-> If you want to use a GPU but the VRAM is not enough, try decreasing the batch size to a value smaller than 64.
+> If you want to use a GPU but the VRAM is not enough:
+> 1. Decrease the training batch size to a value smaller than 64.
+> 2. Remove some `Conv` layers or decrease the number of `Conv` filters.
 
 ## 📰 Citing
 If you use the `RetNet` architecture in your research work or any of the scripts of this repository, please consider citing:
