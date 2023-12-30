@@ -161,7 +161,7 @@ class LearningMethod:
             if verbose:
                 print(f'\nEpoch: {e}')
 
-            # training phase.
+            # Training phase.
             for i, (X_train, y_train) in enumerate(train_loader):
                 self.net.train() # Set to training mode.
 
