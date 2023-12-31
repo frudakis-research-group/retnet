@@ -177,6 +177,10 @@ class LearningMethod:
                 y_train_hat = self.net(X_train)
                 train_loss = self.criterion(input=y_train_hat.ravel(), target=y_train)
 
+                # Update the parameters.
+                train_loss.backward()
+                self.optimizer.step()
+
                 # Validation phase.
                 if (counter % val_loss_freq == 0):
                     self.net.eval() # Set to inference mode.
@@ -194,10 +198,6 @@ class LearningMethod:
                     train_metric = metric(input=yth.ravel(), target=y_train)
                     val_metric = metric(input=y_val_hat.ravel(), target=y_val)
 
-                # Update the parameters.
-                train_loss.backward()
-                self.optimizer.step()
-
                 # Print train and validation metric per `val_loss_freq`.
                 if verbose and (counter % val_loss_freq == 0):
                     print(
@@ -208,33 +208,37 @@ class LearningMethod:
                             f'{f"val_metric = {val_metric:.3f}":>22}', sep=4*' '
                             )
 
-            # Store train/val history.
-            self.train_hist.append(train_loss.item())
-            self.train_metric.append(train_metric.item())
-            self.val_hist.append(val_loss.item())
-            self.val_metric.append(val_metric.item())
-
-            # Tensorboard log.
-            if tb_writer:
-                self.writer.add_scalars(
-                        'learning_curve',
-                        {'train': train_loss, 'val': val_loss},
-                        {'train': train_metric, 'val': val_metric},
-                        e
-                    )
-                self.writer.add_scalar('Metric/train', train_metric, e)
-                self.writer.add_scalar('Metric/val', val_metric, e)
-
-                for name, value in self.net.named_parameters():
-                    self.writer.add_histogram(f'Values/{name}', value, e) 
-                    self.writer.add_histogram(f'Gradients/{name}', value.grad,  e) 
-
+            # Learning rate scheduler.
             if scheduler:
                 self.scheduler.step()
 
-        if tb_writer:
-            self.writer.flush()
-            self.writer.close()
+            # Store train/val history.
+            #self.train_hist.append(train_loss.item())
+            #self.train_metric.append(train_metric.item())
+            #self.val_hist.append(val_loss.item())
+            #self.val_metric.append(val_metric.item())
+
+            ## Tensorboard log.
+            #if tb_writer:
+            #    self.writer.add_scalars(
+            #            'learning_curve',
+            #            {'train': train_loss, 'val': val_loss},
+            #            {'train': train_metric, 'val': val_metric},
+            #            e
+            #        )
+            #    self.writer.add_scalar('Metric/train', train_metric, e)
+            #    self.writer.add_scalar('Metric/val', val_metric, e)
+
+            #    for name, value in self.net.named_parameters():
+            #        self.writer.add_histogram(f'Values/{name}', value, e) 
+            #        self.writer.add_histogram(f'Gradients/{name}', value.grad,  e) 
+
+            #if scheduler:
+            #    self.scheduler.step()
+
+        #if tb_writer:
+        #    self.writer.flush()
+        #    self.writer.close()
 
         print('\nTraining finished!')
 
