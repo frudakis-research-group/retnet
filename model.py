@@ -3,8 +3,6 @@ import torch
 import numpy as np
 import pandas as pd
 import torch.nn as nn
-import torch.optim as optim
-import torch.nn.functional as F
 from torch.utils.data import Dataset
 from itertools import cycle, combinations
 from torch.utils.tensorboard import SummaryWriter
@@ -68,65 +66,6 @@ class RetNet(nn.Module):
          x = self.fc(x)
          
          return x
-
-
-#class VoNet(nn.Module):
-#    def __init__(self):
-#        super().__init__()
-#        self.conv1 = nn.Sequential(
-#            nn.Conv3d(in_channels=1, out_channels=12, kernel_size=3, padding=1, padding_mode='circular', bias=False),
-#            nn.BatchNorm3d(num_features=12),
-#            nn.LeakyReLU(),
-#            )
-#        self.conv2 = nn.Sequential(
-#            nn.Conv3d(in_channels=12, out_channels=24, kernel_size=3, bias=False),
-#            nn.BatchNorm3d(num_features=24),
-#            nn.LeakyReLU(),
-#            )
-#
-#        self.max1 = nn.MaxPool3d(kernel_size=2)
-#
-#        self.conv3 = nn.Sequential(
-#            nn.Conv3d(in_channels=24, out_channels=32, kernel_size=2, bias=False),
-#            nn.BatchNorm3d(num_features=32),
-#            nn.LeakyReLU(),
-#            )
-#
-#        self.max2 = nn.MaxPool3d(kernel_size=2)
-#
-#        self.conv4 = nn.Sequential(
-#            nn.Conv3d(in_channels=32, out_channels=64, kernel_size=2, bias=False),
-#            nn.BatchNorm3d(num_features=64),
-#            nn.LeakyReLU(),
-#            )
-#        self.conv5 = nn.Sequential(
-#            nn.Conv3d(in_channels=64, out_channels=120, kernel_size=2, bias=False),
-#            nn.BatchNorm3d(num_features=120),
-#            nn.LeakyReLU(),
-#            )
-#        self.fc = nn.Sequential(
-#            nn.Flatten(1),
-#            nn.Dropout(0.3),
-#            nn.Linear(3*3*3*120, 84),
-#            nn.BatchNorm1d(num_features=84),
-#            nn.LeakyReLU(),
-#            nn.Linear(84, 20),
-#            nn.BatchNorm1d(num_features=20),
-#            nn.LeakyReLU(),
-#            nn.Linear(20, 1),
-#            )
-#    
-#    def forward(self, x):
-#         x = self.conv1(x)
-#         x = self.conv2(x)
-#         x = self.max1(x)
-#         x = self.conv3(x)
-#         x = self.max2(x)
-#         x = self.conv4(x)
-#         x = self.conv5(x)
-#         x = self.fc(x)
-#         
-#         return x
 
 
 class LearningMethod:
@@ -202,9 +141,7 @@ class LearningMethod:
                 if verbose and (counter % val_loss_freq == 0):
                     print(
                             f'{f"Iteration {counter}":<20} ->',
-                            #f'{f"train_loss = {train_loss:.3f}":<22}',
                             f'{f"train_metric = {train_metric:.3f}":<22}',
-                            #f'{f"val_loss = {val_loss:.3f}":>22}', sep=4*' '
                             f'{f"val_metric = {val_metric:.3f}":>22}', sep=4*' '
                             )
 
@@ -212,7 +149,7 @@ class LearningMethod:
             if scheduler:
                 self.scheduler.step()
 
-            # Store train/val history.
+            # Store train/val history. Needs to be fixed!
             #self.train_hist.append(train_loss.item())
             #self.train_metric.append(train_metric.item())
             #self.val_hist.append(val_loss.item())
@@ -328,12 +265,11 @@ def init_weights(m, initialization='normal', **kwargs):
             m.weight = nn.init.kaiming_uniform_(m.weight, **kwargs)
 
 
-def load_data(dir_batch, path_to_csv, target_name, index_name_csv, size=None):
+def load_data(dir_batch, path_to_csv, target_name, index_col, size=None):
     with open(f'{dir_batch}/clean_names.json', 'r') as fhand:
         names = json.load(fhand)['names']
 
-    df = pd.read_csv(path_to_csv)
-    df.set_index(index_name_csv, inplace=True)
+    df = pd.read_csv(path_to_csv, index_col=index_col)
 
     y = df.loc[names, target_name].values.astype('float32')
     X = np.load(f'{dir_batch}/clean_voxels.npy', mmap_mode='r')

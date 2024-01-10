@@ -2,10 +2,6 @@ import json
 import joblib
 import numpy as np
 import pandas as pd
-from sklearn.metrics import r2_score
-from sklearn.metrics import mean_absolute_error as mae
-from sklearn.metrics import median_absolute_error as dae
-from sklearn.metrics import mean_absolute_percentage_error as mape
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import train_test_split
 
@@ -30,16 +26,14 @@ features = [
 
 target = 'CO2_uptake_P0.15bar_T298K [mmol/g]'
 
-# Load features and labels.
+# Load the data set.
 df = pd.read_csv('data/MOFs/all_MOFs_screening_data.csv', index_col='MOFname')
 
+# Instantiate the regressor.
 reg = RandomForestRegressor(n_jobs=-1)
 
-# Drop missing values.
+# Create the test set.
 df_test = df.loc[mof_test]
-df_test.replace([np.inf, -np.inf], np.nan, inplace=True)
-df_test.dropna(inplace=True)
-
 X_test = df_test.loc[:, features]
 y_test = df_test.loc[:, target]
 
@@ -48,18 +42,16 @@ train_sizes = [
         10_000, 15_000, 20_000, len(mof_train)
         ]
  
+# Iterate over different training set sizes and estimate performance.
 for size in train_sizes:
-    df_train_tmp = df.loc[mof_train[:size]]
-
-    df_train = df_train_tmp.replace([np.inf, -np.inf], np.nan)
-    df_train.dropna(inplace=True)
+    df_train = df.loc[mof_train[:size]]
 
     X_train = df_train.loc[:, features]
     y_train = df_train.loc[:, target]
 
     reg.fit(X_train, y_train)
 
-    print(size, r2_score(y_true=y_test, y_pred=reg.predict(X_test)))
+    print(size, reg.score(X_test, y_test))
 
     # Save the trained model.
     #with open('rf_model.pkl', 'wb') as fhand:

@@ -26,7 +26,6 @@ X_train, y_train = load_data(
         'data/MOFs/all_MOFs_screening_data.csv',
         'CO2_uptake_P0.15bar_T298K [mmol/g]',
         'MOFname',
-        size=32_432
         )
 
 # Load validation data.
