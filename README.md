@@ -107,9 +107,9 @@ Check the comments  in `training.py` to customize the training phase on your nee
 
 > [!NOTE]
 > The default hyperparameters (e.g., optimizer, scheduler, etc.) are based on the original experiments and may not be optimal for all datasets or tasks.
-> We recommend tuning them for your specific use case to achieve the best performance.
+> **We recommend tuning them for your specific use case to achieve the best performance**.
 > 
-> For a more streamlined workflow, including optimized training pipelines and pretrained models, we recommend using AIdsorb.
+> For a more streamlined workflow, **we recommend using [AIdsorb](https://github.com/adosar/aidsorb)**.
 
 ## 📰 Citing
 If you use the `RetNet` architecture in your research work or any of the scripts of this repository, please consider citing:
