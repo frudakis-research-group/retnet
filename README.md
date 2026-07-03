@@ -2,11 +2,9 @@
 
 > [!IMPORTANT]
 >
-> We recommend using **AIdsorb** for all new projects on deep learning for porous materials.
+> We recommend using **AIdsorb** for all new projects.
 >
-> AIdsorb provides an integrated framework that makes everything in this repository easier and more streamlined, including pretrained models, training, fine-tuning, evaluation, inference, and data processing utilities.
->
-> These pretrained architectures can be readily fine-tuned for new adsorption tasks with minimal setup.
+> AIdsorb is a Python package for deep learning in porous materials, including pretrained models together with training, fine-tuning, evaluation, inference, and data processing utilities.
 >
 > 📦 Source code: https://github.com/adosar/aidsorb
 >
